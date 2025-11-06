@@ -1,4 +1,4 @@
-teste:  # 06/11/2025, 09:22:01:521
+teste:  # 06/11/2025, 09:46:46:105
   request:
     url: http://127.0.0.1:5000/alunos/
     method: POST
@@ -12,23 +12,24 @@ teste:  # 06/11/2025, 09:22:01:521
         "turma_id": 1,
         "data_nascimento": "2005-10-10"
       }
-  response:  # 82 ms
+  response:  # 68 ms
     status:
       code: 500
       message: INTERNAL SERVER ERROR
     headers:
       connection: close
-      content-length: '59323'
+      content-length: '57342'
       content-type: text/html; charset=utf-8
-      date: Thu, 06 Nov 2025 12:22:01 GMT
+      date: Thu, 06 Nov 2025 12:46:46 GMT
       server: Werkzeug/3.1.3 Python/3.13.9
     body: |
       <!doctype html>
       <html lang=en>
         <head>
-          <title>sqlalchemy.exc.StatementError: (builtins.TypeError) SQLite Date type only accepts Python date objects as input.
+          <title>sqlalchemy.exc.IntegrityError: (sqlite3.IntegrityError) NOT NULL constraint failed: aluno.nota_primeiro_semestre
       [SQL: INSERT INTO aluno (nome, idade, turma_id, data_nascimento) VALUES (?, ?, ?, ?)]
-      [parameters: [{&#39;idade&#39;: 15, &#39;data_nascimento&#39;: &#39;2005-10-10&#39;, &#39;nome&#39;: &#39;teste&#39;, &#39;turma_id&#39;: 1}]]
+      [parameters: (&#39;teste&#39;, 15, 1, &#39;2005-10-10&#39;)]
+      (Background on this error at: https://sqlalche.me/e/20/gkpj)
        // Werkzeug Debugger</title>
           <link rel="stylesheet" href="?__debugger__=yes&amp;cmd=resource&amp;f=style.css">
           <link rel="shortcut icon"
@@ -38,77 +39,60 @@ teste:  # 06/11/2025, 09:22:01:521
             var CONSOLE_MODE = false,
                 EVALEX = true,
                 EVALEX_TRUSTED = false,
-                SECRET = "jqpUQHpXpVZ8VK1D6EzN";
+                SECRET = "x6YJ70z5YOlCK2WXmitn";
           </script>
         </head>
         <body style="background-color: #fff">
           <div class="debugger">
-      <h1>sqlalchemy.exc.StatementError</h1>
+      <h1>sqlalchemy.exc.IntegrityError</h1>
       <div class="detail">
-        <p class="errormsg">sqlalchemy.exc.StatementError: (builtins.TypeError) SQLite Date type only accepts Python date objects as input.
+        <p class="errormsg">sqlalchemy.exc.IntegrityError: (sqlite3.IntegrityError) NOT NULL constraint failed: aluno.nota_primeiro_semestre
       [SQL: INSERT INTO aluno (nome, idade, turma_id, data_nascimento) VALUES (?, ?, ?, ?)]
-      [parameters: [{&#39;idade&#39;: 15, &#39;data_nascimento&#39;: &#39;2005-10-10&#39;, &#39;nome&#39;: &#39;teste&#39;, &#39;turma_id&#39;: 1}]]
+      [parameters: (&#39;teste&#39;, 15, 1, &#39;2005-10-10&#39;)]
+      (Background on this error at: https://sqlalche.me/e/20/gkpj)
       </p>
       </div>
       <h2 class="traceback">Traceback <em>(most recent call last)</em></h2>
       <div class="traceback">
         <h3></h3>
-        <ul><li><div class="frame" id="frame-129809001317696">
+        <ul><li><div class="frame" id="frame-132178254974784">
         <h4>File <cite class="filename">"/usr/local/lib/python3.13/site-packages/sqlalchemy/engine/base.py"</cite>,
-            line <em class="line">1811</em>,
-            in <code class="function">_execute_context</code></h4>
-        <div class="source library"><pre class="line before"><span class="ws">        </span>try:</pre>
-      <pre class="line before"><span class="ws">            </span>conn = self._dbapi_connection</pre>
-      <pre class="line before"><span class="ws">            </span>if conn is None:</pre>
-      <pre class="line before"><span class="ws">                </span>conn = self._revalidate_connection()</pre>
-      <pre class="line before"><span class="ws"></span> </pre>
-      <pre class="line current"><span class="ws">            </span>context = constructor(
-      <span class="ws">            </span>          </pre>
-      <pre class="line after"><span class="ws">                </span>dialect, self, conn, execution_options, *args, **kw</pre>
-      <pre class="line after"><span class="ws">            </span>)</pre>
-      <pre class="line after"><span class="ws">        </span>except (exc.PendingRollbackError, exc.ResourceClosedError):</pre>
-      <pre class="line after"><span class="ws">            </span>raise</pre>
-      <pre class="line after"><span class="ws">        </span>except BaseException as e:</pre></div>
-      </div>
-
-      <li><div class="frame" id="frame-129809001317856">
-        <h4>File <cite class="filename">"/usr/local/lib/python3.13/site-packages/sqlalchemy/engine/default.py"</cite>,
-            line <em class="line">1485</em>,
-            in <code class="function">_init_compiled</code></h4>
-        <div class="source library"><pre class="line before"><span class="ws">            </span>core_positional_parameters: MutableSequence[Sequence[Any]] = []</pre>
-      <pre class="line before"><span class="ws">            </span>assert positiontup is not None</pre>
-      <pre class="line before"><span class="ws">            </span>for compiled_params in self.compiled_parameters:</pre>
-      <pre class="line before"><span class="ws">                </span>l_param: List[Any] = [</pre>
-      <pre class="line before"><span class="ws">                    </span>(</pre>
-      <pre class="line current"><span class="ws">                        </span>flattened_processors[key](compiled_params[key])
-      <span class="ws">                        </span>^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^</pre>
-      <pre class="line after"><span class="ws">                        </span>if key in flattened_processors</pre>
-      <pre class="line after"><span class="ws">                        </span>else compiled_params[key]</pre>
+            line <em class="line">1963</em>,
+            in <code class="function">_exec_single_context</code></h4>
+        <div class="source library"><pre class="line before"><span class="ws">                            </span>context,</pre>
+      <pre class="line before"><span class="ws">                        </span>):</pre>
+      <pre class="line before"><span class="ws">                            </span>evt_handled = True</pre>
+      <pre class="line before"><span class="ws">                            </span>break</pre>
+      <pre class="line before"><span class="ws">                </span>if not evt_handled:</pre>
+      <pre class="line current"><span class="ws">                    </span>self.dialect.do_execute(
+      <span class="ws">                    </span>^</pre>
+      <pre class="line after"><span class="ws">                        </span>cursor, str_statement, effective_parameters, context</pre>
       <pre class="line after"><span class="ws">                    </span>)</pre>
-      <pre class="line after"><span class="ws">                    </span>for key in positiontup</pre>
-      <pre class="line after"><span class="ws">                </span>]</pre></div>
+      <pre class="line after"><span class="ws"></span> </pre>
+      <pre class="line after"><span class="ws">            </span>if self._has_events or self.engine._has_events:</pre>
+      <pre class="line after"><span class="ws">                </span>self.dispatch.after_cursor_execute(</pre></div>
       </div>
 
-      <li><div class="frame" id="frame-129809001318016">
-        <h4>File <cite class="filename">"/usr/local/lib/python3.13/site-packages/sqlalchemy/dialects/sqlite/base.py"</cite>,
-            line <em class="line">1263</em>,
-            in <code class="function">process</code></h4>
-        <div class="source library"><pre class="line before"><span class="ws">                    </span>&#34;year&#34;: value.year,</pre>
-      <pre class="line before"><span class="ws">                    </span>&#34;month&#34;: value.month,</pre>
-      <pre class="line before"><span class="ws">                    </span>&#34;day&#34;: value.day,</pre>
-      <pre class="line before"><span class="ws">                </span>}</pre>
-      <pre class="line before"><span class="ws">            </span>else:</pre>
-      <pre class="line current"><span class="ws">                </span>raise TypeError(
-      <span class="ws">                </span>^</pre>
-      <pre class="line after"><span class="ws">                    </span>&#34;SQLite Date type only accepts Python &#34;</pre>
-      <pre class="line after"><span class="ws">                    </span>&#34;date objects as input.&#34;</pre>
-      <pre class="line after"><span class="ws">                </span>)</pre>
+      <li><div class="frame" id="frame-132178254974944">
+        <h4>File <cite class="filename">"/usr/local/lib/python3.13/site-packages/sqlalchemy/engine/default.py"</cite>,
+            line <em class="line">943</em>,
+            in <code class="function">do_execute</code></h4>
+        <div class="source library"><pre class="line before"><span class="ws"></span> </pre>
+      <pre class="line before"><span class="ws">    </span>def do_executemany(self, cursor, statement, parameters, context=None):</pre>
+      <pre class="line before"><span class="ws">        </span>cursor.executemany(statement, parameters)</pre>
+      <pre class="line before"><span class="ws"></span> </pre>
+      <pre class="line before"><span class="ws">    </span>def do_execute(self, cursor, statement, parameters, context=None):</pre>
+      <pre class="line current"><span class="ws">        </span>cursor.execute(statement, parameters)
+      <span class="ws">        </span>^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^</pre>
       <pre class="line after"><span class="ws"></span> </pre>
-      <pre class="line after"><span class="ws">        </span>return process</pre></div>
+      <pre class="line after"><span class="ws">    </span>def do_execute_no_params(self, cursor, statement, context=None):</pre>
+      <pre class="line after"><span class="ws">        </span>cursor.execute(statement)</pre>
+      <pre class="line after"><span class="ws"></span> </pre>
+      <pre class="line after"><span class="ws">    </span>def is_disconnect(</pre></div>
       </div>
 
       <li><div class="exc-divider">The above exception was the direct cause of the following exception:</div>
-      <li><div class="frame" id="frame-129809001181120">
+      <li><div class="frame" id="frame-132178254887360">
         <h4>File <cite class="filename">"/usr/local/lib/python3.13/site-packages/flask/app.py"</cite>,
             line <em class="line">1536</em>,
             in <code class="function">__call__</code></h4>
@@ -121,7 +105,7 @@ teste:  # 06/11/2025, 09:22:01:521
       <span class="ws">        </span>       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^</pre></div>
       </div>
 
-      <li><div class="frame" id="frame-129809001179840">
+      <li><div class="frame" id="frame-132178254886080">
         <h4>File <cite class="filename">"/usr/local/lib/python3.13/site-packages/flask/app.py"</cite>,
             line <em class="line">1514</em>,
             in <code class="function">wsgi_app</code></h4>
@@ -139,7 +123,7 @@ teste:  # 06/11/2025, 09:22:01:521
       <pre class="line after"><span class="ws">        </span>finally:</pre></div>
       </div>
 
-      <li><div class="frame" id="frame-129809001180960">
+      <li><div class="frame" id="frame-132178254887200">
         <h4>File <cite class="filename">"/usr/local/lib/python3.13/site-packages/flask/app.py"</cite>,
             line <em class="line">1511</em>,
             in <code class="function">wsgi_app</code></h4>
@@ -157,7 +141,7 @@ teste:  # 06/11/2025, 09:22:01:521
       <pre class="line after"><span class="ws">                </span>error = sys.exc_info()[1]</pre></div>
       </div>
 
-      <li><div class="frame" id="frame-129809001181760">
+      <li><div class="frame" id="frame-132178254888000">
         <h4>File <cite class="filename">"/usr/local/lib/python3.13/site-packages/flask/app.py"</cite>,
             line <em class="line">919</em>,
             in <code class="function">full_dispatch_request</code></h4>
@@ -175,7 +159,7 @@ teste:  # 06/11/2025, 09:22:01:521
       <pre class="line after"><span class="ws">        </span>rv: ft.ResponseReturnValue | HTTPException,</pre></div>
       </div>
 
-      <li><div class="frame" id="frame-129809001181920">
+      <li><div class="frame" id="frame-132178254888160">
         <h4>File <cite class="filename">"/usr/local/lib/python3.13/site-packages/flask/app.py"</cite>,
             line <em class="line">917</em>,
             in <code class="function">full_dispatch_request</code></h4>
@@ -193,7 +177,7 @@ teste:  # 06/11/2025, 09:22:01:521
       <pre class="line after"><span class="ws">    </span>def finalize_request(</pre></div>
       </div>
 
-      <li><div class="frame" id="frame-129809001182080">
+      <li><div class="frame" id="frame-132178254888320">
         <h4>File <cite class="filename">"/usr/local/lib/python3.13/site-packages/flask/app.py"</cite>,
             line <em class="line">902</em>,
             in <code class="function">dispatch_request</code></h4>
@@ -211,7 +195,7 @@ teste:  # 06/11/2025, 09:22:01:521
       <pre class="line after"><span class="ws">        </span>error handling.</pre></div>
       </div>
 
-      <li><div class="frame" id="frame-129809001182240">
+      <li><div class="frame" id="frame-132178254888480">
         <h4>File <cite class="filename">"/usr/local/lib/python3.13/site-packages/flasgger/utils.py"</cite>,
             line <em class="line">305</em>,
             in <code class="function">wrapper</code></h4>
@@ -229,9 +213,9 @@ teste:  # 06/11/2025, 09:22:01:521
       <pre class="line after"><span class="ws"></span> </pre></div>
       </div>
 
-      <li><div class="frame" id="frame-129809001182560">
+      <li><div class="frame" id="frame-132178254888800">
         <h4>File <cite class="filename">"/app/controllers/aluno_controllers.py"</cite>,
-            line <em class="line">103</em>,
+            line <em class="line">111</em>,
             in <code class="function">criar_aluno</code></h4>
         <div class="source "><pre class="line before"><span class="ws">        </span>#     setattr(aluno, &#39;nota_primeiro_semestre&#39;, 0.0)</pre>
       <pre class="line before"><span class="ws">        </span># if hasattr(aluno, &#39;nota_segundo_semestre&#39;):</pre>
@@ -247,7 +231,7 @@ teste:  # 06/11/2025, 09:22:01:521
       <pre class="line after"><span class="ws">            </span>&#39;idade&#39;: aluno.idade,</pre></div>
       </div>
 
-      <li><div class="frame" id="frame-129809001182720">
+      <li><div class="frame" id="frame-132178254970944">
         <h4>File <cite class="filename">"/usr/local/lib/python3.13/site-packages/sqlalchemy/orm/scoping.py"</cite>,
             line <em class="line">599</em>,
             in <code class="function">commit</code></h4>
@@ -265,7 +249,7 @@ teste:  # 06/11/2025, 09:22:01:521
       <pre class="line after"><span class="ws">        </span>execution_options: Optional[CoreExecuteOptionsParameter] = None,</pre></div>
       </div>
 
-      <li><div class="frame" id="frame-129809001182880">
+      <li><div class="frame" id="frame-132178254971104">
         <h4>File <cite class="filename">"/usr/local/lib/python3.13/site-packages/sqlalchemy/orm/session.py"</cite>,
             line <em class="line">2032</em>,
             in <code class="function">commit</code></h4>
@@ -283,14 +267,14 @@ teste:  # 06/11/2025, 09:22:01:521
       <pre class="line after"><span class="ws">        </span>If no transaction is in progress, this method raises an</pre></div>
       </div>
 
-      <li><div class="frame" id="frame-129809001183040">
+      <li><div class="frame" id="frame-132178254971264">
         <h4>File <cite class="filename">"&lt;string&gt;"</cite>,
             line <em class="line">2</em>,
             in <code class="function">commit</code></h4>
         <div class="source "></div>
       </div>
 
-      <li><div class="frame" id="frame-129809001183200">
+      <li><div class="frame" id="frame-132178254971424">
         <h4>File <cite class="filename">"/usr/local/lib/python3.13/site-packages/sqlalchemy/orm/state_changes.py"</cite>,
             line <em class="line">139</em>,
             in <code class="function">_go</code></h4>
@@ -308,7 +292,7 @@ teste:  # 06/11/2025, 09:22:01:521
       <pre class="line after"><span class="ws">                    </span>return ret_value</pre></div>
       </div>
 
-      <li><div class="frame" id="frame-129809001183360">
+      <li><div class="frame" id="frame-132178254971584">
         <h4>File <cite class="filename">"/usr/local/lib/python3.13/site-packages/sqlalchemy/orm/session.py"</cite>,
             line <em class="line">1313</em>,
             in <code class="function">commit</code></h4>
@@ -326,14 +310,14 @@ teste:  # 06/11/2025, 09:22:01:521
       <pre class="line after"><span class="ws">            </span>):</pre></div>
       </div>
 
-      <li><div class="frame" id="frame-129809001183520">
+      <li><div class="frame" id="frame-132178254971744">
         <h4>File <cite class="filename">"&lt;string&gt;"</cite>,
             line <em class="line">2</em>,
             in <code class="function">_prepare_impl</code></h4>
         <div class="source "></div>
       </div>
 
-      <li><div class="frame" id="frame-129809001183680">
+      <li><div class="frame" id="frame-132178254971904">
         <h4>File <cite class="filename">"/usr/local/lib/python3.13/site-packages/sqlalchemy/orm/state_changes.py"</cite>,
             line <em class="line">139</em>,
             in <code class="function">_go</code></h4>
@@ -351,7 +335,7 @@ teste:  # 06/11/2025, 09:22:01:521
       <pre class="line after"><span class="ws">                    </span>return ret_value</pre></div>
       </div>
 
-      <li><div class="frame" id="frame-129809001183840">
+      <li><div class="frame" id="frame-132178254972064">
         <h4>File <cite class="filename">"/usr/local/lib/python3.13/site-packages/sqlalchemy/orm/session.py"</cite>,
             line <em class="line">1288</em>,
             in <code class="function">_prepare_impl</code></h4>
@@ -369,7 +353,7 @@ teste:  # 06/11/2025, 09:22:01:521
       <pre class="line after"><span class="ws">                    </span>&#34;creating new objects?&#34;</pre></div>
       </div>
 
-      <li><div class="frame" id="frame-129809001184000">
+      <li><div class="frame" id="frame-132178254972224">
         <h4>File <cite class="filename">"/usr/local/lib/python3.13/site-packages/sqlalchemy/orm/session.py"</cite>,
             line <em class="line">4345</em>,
             in <code class="function">flush</code></h4>
@@ -387,7 +371,7 @@ teste:  # 06/11/2025, 09:22:01:521
       <pre class="line after"><span class="ws">        </span>util.warn(</pre></div>
       </div>
 
-      <li><div class="frame" id="frame-129809001184160">
+      <li><div class="frame" id="frame-132178254972384">
         <h4>File <cite class="filename">"/usr/local/lib/python3.13/site-packages/sqlalchemy/orm/session.py"</cite>,
             line <em class="line">4480</em>,
             in <code class="function">_flush</code></h4>
@@ -405,7 +389,7 @@ teste:  # 06/11/2025, 09:22:01:521
       <pre class="line after"><span class="ws">        </span>objects: Iterable[object],</pre></div>
       </div>
 
-      <li><div class="frame" id="frame-129809001184320">
+      <li><div class="frame" id="frame-132178254972544">
         <h4>File <cite class="filename">"/usr/local/lib/python3.13/site-packages/sqlalchemy/util/langhelpers.py"</cite>,
             line <em class="line">224</em>,
             in <code class="function">__exit__</code></h4>
@@ -423,7 +407,7 @@ teste:  # 06/11/2025, 09:22:01:521
       <pre class="line after"><span class="ws"></span> </pre></div>
       </div>
 
-      <li><div class="frame" id="frame-129809001184480">
+      <li><div class="frame" id="frame-132178254972704">
         <h4>File <cite class="filename">"/usr/local/lib/python3.13/site-packages/sqlalchemy/orm/session.py"</cite>,
             line <em class="line">4441</em>,
             in <code class="function">_flush</code></h4>
@@ -441,7 +425,7 @@ teste:  # 06/11/2025, 09:22:01:521
       <pre class="line after"><span class="ws"></span> </pre></div>
       </div>
 
-      <li><div class="frame" id="frame-129809001184640">
+      <li><div class="frame" id="frame-132178254972864">
         <h4>File <cite class="filename">"/usr/local/lib/python3.13/site-packages/sqlalchemy/orm/unitofwork.py"</cite>,
             line <em class="line">466</em>,
             in <code class="function">execute</code></h4>
@@ -459,7 +443,7 @@ teste:  # 06/11/2025, 09:22:01:521
       <pre class="line after"><span class="ws"></span> </pre></div>
       </div>
 
-      <li><div class="frame" id="frame-129809001184800">
+      <li><div class="frame" id="frame-132178254973024">
         <h4>File <cite class="filename">"/usr/local/lib/python3.13/site-packages/sqlalchemy/orm/unitofwork.py"</cite>,
             line <em class="line">642</em>,
             in <code class="function">execute</code></h4>
@@ -477,7 +461,7 @@ teste:  # 06/11/2025, 09:22:01:521
       <pre class="line after"><span class="ws"></span> </pre></div>
       </div>
 
-      <li><div class="frame" id="frame-129809001184960">
+      <li><div class="frame" id="frame-132178254973184">
         <h4>File <cite class="filename">"/usr/local/lib/python3.13/site-packages/sqlalchemy/orm/persistence.py"</cite>,
             line <em class="line">93</em>,
             in <code class="function">save_obj</code></h4>
@@ -495,7 +479,7 @@ teste:  # 06/11/2025, 09:22:01:521
       <pre class="line after"><span class="ws">            </span>insert,</pre></div>
       </div>
 
-      <li><div class="frame" id="frame-129809001185120">
+      <li><div class="frame" id="frame-132178254973344">
         <h4>File <cite class="filename">"/usr/local/lib/python3.13/site-packages/sqlalchemy/orm/persistence.py"</cite>,
             line <em class="line">1233</em>,
             in <code class="function">_emit_insert_statements</code></h4>
@@ -513,7 +497,7 @@ teste:  # 06/11/2025, 09:22:01:521
       <pre class="line after"><span class="ws"></span> </pre></div>
       </div>
 
-      <li><div class="frame" id="frame-129809001316416">
+      <li><div class="frame" id="frame-132178254973504">
         <h4>File <cite class="filename">"/usr/local/lib/python3.13/site-packages/sqlalchemy/engine/base.py"</cite>,
             line <em class="line">1415</em>,
             in <code class="function">execute</code></h4>
@@ -531,7 +515,7 @@ teste:  # 06/11/2025, 09:22:01:521
       <pre class="line after"><span class="ws"></span> </pre></div>
       </div>
 
-      <li><div class="frame" id="frame-129809001316576">
+      <li><div class="frame" id="frame-132178254973664">
         <h4>File <cite class="filename">"/usr/local/lib/python3.13/site-packages/sqlalchemy/sql/elements.py"</cite>,
             line <em class="line">523</em>,
             in <code class="function">_execute_on_connection</code></h4>
@@ -549,7 +533,7 @@ teste:  # 06/11/2025, 09:22:01:521
       <pre class="line after"><span class="ws"></span> </pre></div>
       </div>
 
-      <li><div class="frame" id="frame-129809001316736">
+      <li><div class="frame" id="frame-132178254973824">
         <h4>File <cite class="filename">"/usr/local/lib/python3.13/site-packages/sqlalchemy/engine/base.py"</cite>,
             line <em class="line">1637</em>,
             in <code class="function">_execute_clauseelement</code></h4>
@@ -567,25 +551,43 @@ teste:  # 06/11/2025, 09:22:01:521
       <pre class="line after"><span class="ws">            </span>execution_options,</pre></div>
       </div>
 
-      <li><div class="frame" id="frame-129809001316896">
+      <li><div class="frame" id="frame-132178254973984">
         <h4>File <cite class="filename">"/usr/local/lib/python3.13/site-packages/sqlalchemy/engine/base.py"</cite>,
-            line <em class="line">1817</em>,
+            line <em class="line">1842</em>,
             in <code class="function">_execute_context</code></h4>
-        <div class="source library"><pre class="line before"><span class="ws">                </span>dialect, self, conn, execution_options, *args, **kw</pre>
-      <pre class="line before"><span class="ws">            </span>)</pre>
-      <pre class="line before"><span class="ws">        </span>except (exc.PendingRollbackError, exc.ResourceClosedError):</pre>
-      <pre class="line before"><span class="ws">            </span>raise</pre>
+        <div class="source library"><pre class="line before"><span class="ws">        </span>context.pre_exec()</pre>
+      <pre class="line before"><span class="ws"></span> </pre>
+      <pre class="line before"><span class="ws">        </span>if context.execute_style is ExecuteStyle.INSERTMANYVALUES:</pre>
+      <pre class="line before"><span class="ws">            </span>return self._exec_insertmany_context(dialect, context)</pre>
+      <pre class="line before"><span class="ws">        </span>else:</pre>
+      <pre class="line current"><span class="ws">            </span>return self._exec_single_context(
+      <span class="ws">            </span>       </pre>
+      <pre class="line after"><span class="ws">                </span>dialect, context, statement, parameters</pre>
+      <pre class="line after"><span class="ws">            </span>)</pre>
+      <pre class="line after"><span class="ws"></span> </pre>
+      <pre class="line after"><span class="ws">    </span>def _exec_single_context(</pre>
+      <pre class="line after"><span class="ws">        </span>self,</pre></div>
+      </div>
+
+      <li><div class="frame" id="frame-132178254974144">
+        <h4>File <cite class="filename">"/usr/local/lib/python3.13/site-packages/sqlalchemy/engine/base.py"</cite>,
+            line <em class="line">1982</em>,
+            in <code class="function">_exec_single_context</code></h4>
+        <div class="source library"><pre class="line before"><span class="ws">            </span>context.post_exec()</pre>
+      <pre class="line before"><span class="ws"></span> </pre>
+      <pre class="line before"><span class="ws">            </span>result = context._setup_result_proxy()</pre>
+      <pre class="line before"><span class="ws"></span> </pre>
       <pre class="line before"><span class="ws">        </span>except BaseException as e:</pre>
       <pre class="line current"><span class="ws">            </span>self._handle_dbapi_exception(
       <span class="ws">            </span>^</pre>
-      <pre class="line after"><span class="ws">                </span>e, str(statement), parameters, None, None</pre>
+      <pre class="line after"><span class="ws">                </span>e, str_statement, effective_parameters, cursor, context</pre>
       <pre class="line after"><span class="ws">            </span>)</pre>
       <pre class="line after"><span class="ws"></span> </pre>
-      <pre class="line after"><span class="ws">        </span>if (</pre>
-      <pre class="line after"><span class="ws">            </span>self._transaction</pre></div>
+      <pre class="line after"><span class="ws">        </span>return result</pre>
+      <pre class="line after"><span class="ws"></span> </pre></div>
       </div>
 
-      <li><div class="frame" id="frame-129809001317056">
+      <li><div class="frame" id="frame-132178254974304">
         <h4>File <cite class="filename">"/usr/local/lib/python3.13/site-packages/sqlalchemy/engine/base.py"</cite>,
             line <em class="line">2351</em>,
             in <code class="function">_handle_dbapi_exception</code></h4>
@@ -603,63 +605,46 @@ teste:  # 06/11/2025, 09:22:01:521
       <pre class="line after"><span class="ws">            </span>del self._reentrant_error</pre></div>
       </div>
 
-      <li><div class="frame" id="frame-129809001317216">
+      <li><div class="frame" id="frame-132178254974464">
         <h4>File <cite class="filename">"/usr/local/lib/python3.13/site-packages/sqlalchemy/engine/base.py"</cite>,
-            line <em class="line">1811</em>,
-            in <code class="function">_execute_context</code></h4>
-        <div class="source library"><pre class="line before"><span class="ws">        </span>try:</pre>
-      <pre class="line before"><span class="ws">            </span>conn = self._dbapi_connection</pre>
-      <pre class="line before"><span class="ws">            </span>if conn is None:</pre>
-      <pre class="line before"><span class="ws">                </span>conn = self._revalidate_connection()</pre>
-      <pre class="line before"><span class="ws"></span> </pre>
-      <pre class="line current"><span class="ws">            </span>context = constructor(
-      <span class="ws">            </span>          </pre>
-      <pre class="line after"><span class="ws">                </span>dialect, self, conn, execution_options, *args, **kw</pre>
-      <pre class="line after"><span class="ws">            </span>)</pre>
-      <pre class="line after"><span class="ws">        </span>except (exc.PendingRollbackError, exc.ResourceClosedError):</pre>
-      <pre class="line after"><span class="ws">            </span>raise</pre>
-      <pre class="line after"><span class="ws">        </span>except BaseException as e:</pre></div>
-      </div>
-
-      <li><div class="frame" id="frame-129809001317376">
-        <h4>File <cite class="filename">"/usr/local/lib/python3.13/site-packages/sqlalchemy/engine/default.py"</cite>,
-            line <em class="line">1485</em>,
-            in <code class="function">_init_compiled</code></h4>
-        <div class="source library"><pre class="line before"><span class="ws">            </span>core_positional_parameters: MutableSequence[Sequence[Any]] = []</pre>
-      <pre class="line before"><span class="ws">            </span>assert positiontup is not None</pre>
-      <pre class="line before"><span class="ws">            </span>for compiled_params in self.compiled_parameters:</pre>
-      <pre class="line before"><span class="ws">                </span>l_param: List[Any] = [</pre>
-      <pre class="line before"><span class="ws">                    </span>(</pre>
-      <pre class="line current"><span class="ws">                        </span>flattened_processors[key](compiled_params[key])
-      <span class="ws">                        </span>^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^</pre>
-      <pre class="line after"><span class="ws">                        </span>if key in flattened_processors</pre>
-      <pre class="line after"><span class="ws">                        </span>else compiled_params[key]</pre>
+            line <em class="line">1963</em>,
+            in <code class="function">_exec_single_context</code></h4>
+        <div class="source library"><pre class="line before"><span class="ws">                            </span>context,</pre>
+      <pre class="line before"><span class="ws">                        </span>):</pre>
+      <pre class="line before"><span class="ws">                            </span>evt_handled = True</pre>
+      <pre class="line before"><span class="ws">                            </span>break</pre>
+      <pre class="line before"><span class="ws">                </span>if not evt_handled:</pre>
+      <pre class="line current"><span class="ws">                    </span>self.dialect.do_execute(
+      <span class="ws">                    </span>^</pre>
+      <pre class="line after"><span class="ws">                        </span>cursor, str_statement, effective_parameters, context</pre>
       <pre class="line after"><span class="ws">                    </span>)</pre>
-      <pre class="line after"><span class="ws">                    </span>for key in positiontup</pre>
-      <pre class="line after"><span class="ws">                </span>]</pre></div>
+      <pre class="line after"><span class="ws"></span> </pre>
+      <pre class="line after"><span class="ws">            </span>if self._has_events or self.engine._has_events:</pre>
+      <pre class="line after"><span class="ws">                </span>self.dispatch.after_cursor_execute(</pre></div>
       </div>
 
-      <li><div class="frame" id="frame-129809001317536">
-        <h4>File <cite class="filename">"/usr/local/lib/python3.13/site-packages/sqlalchemy/dialects/sqlite/base.py"</cite>,
-            line <em class="line">1263</em>,
-            in <code class="function">process</code></h4>
-        <div class="source library"><pre class="line before"><span class="ws">                    </span>&#34;year&#34;: value.year,</pre>
-      <pre class="line before"><span class="ws">                    </span>&#34;month&#34;: value.month,</pre>
-      <pre class="line before"><span class="ws">                    </span>&#34;day&#34;: value.day,</pre>
-      <pre class="line before"><span class="ws">                </span>}</pre>
-      <pre class="line before"><span class="ws">            </span>else:</pre>
-      <pre class="line current"><span class="ws">                </span>raise TypeError(
-      <span class="ws">                </span>^</pre>
-      <pre class="line after"><span class="ws">                    </span>&#34;SQLite Date type only accepts Python &#34;</pre>
-      <pre class="line after"><span class="ws">                    </span>&#34;date objects as input.&#34;</pre>
-      <pre class="line after"><span class="ws">                </span>)</pre>
+      <li><div class="frame" id="frame-132178254974624">
+        <h4>File <cite class="filename">"/usr/local/lib/python3.13/site-packages/sqlalchemy/engine/default.py"</cite>,
+            line <em class="line">943</em>,
+            in <code class="function">do_execute</code></h4>
+        <div class="source library"><pre class="line before"><span class="ws"></span> </pre>
+      <pre class="line before"><span class="ws">    </span>def do_executemany(self, cursor, statement, parameters, context=None):</pre>
+      <pre class="line before"><span class="ws">        </span>cursor.executemany(statement, parameters)</pre>
+      <pre class="line before"><span class="ws"></span> </pre>
+      <pre class="line before"><span class="ws">    </span>def do_execute(self, cursor, statement, parameters, context=None):</pre>
+      <pre class="line current"><span class="ws">        </span>cursor.execute(statement, parameters)
+      <span class="ws">        </span>^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^</pre>
       <pre class="line after"><span class="ws"></span> </pre>
-      <pre class="line after"><span class="ws">        </span>return process</pre></div>
+      <pre class="line after"><span class="ws">    </span>def do_execute_no_params(self, cursor, statement, context=None):</pre>
+      <pre class="line after"><span class="ws">        </span>cursor.execute(statement)</pre>
+      <pre class="line after"><span class="ws"></span> </pre>
+      <pre class="line after"><span class="ws">    </span>def is_disconnect(</pre></div>
       </div>
       </ul>
-        <blockquote>sqlalchemy.exc.StatementError: (builtins.TypeError) SQLite Date type only accepts Python date objects as input.
+        <blockquote>sqlalchemy.exc.IntegrityError: (sqlite3.IntegrityError) NOT NULL constraint failed: aluno.nota_primeiro_semestre
       [SQL: INSERT INTO aluno (nome, idade, turma_id, data_nascimento) VALUES (?, ?, ?, ?)]
-      [parameters: [{&#39;idade&#39;: 15, &#39;data_nascimento&#39;: &#39;2005-10-10&#39;, &#39;nome&#39;: &#39;teste&#39;, &#39;turma_id&#39;: 1}]]
+      [parameters: (&#39;teste&#39;, 15, 1, &#39;2005-10-10&#39;)]
+      (Background on this error at: https://sqlalche.me/e/20/gkpj)
       </blockquote>
       </div>
 
@@ -668,16 +653,13 @@ teste:  # 06/11/2025, 09:22:01:521
             This is the Copy/Paste friendly version of the traceback.
           </p>
           <textarea cols="50" rows="10" name="code" readonly>Traceback (most recent call last):
-        File &#34;/usr/local/lib/python3.13/site-packages/sqlalchemy/engine/base.py&#34;, line 1811, in _execute_context
-          context = constructor(
-          
-        File &#34;/usr/local/lib/python3.13/site-packages/sqlalchemy/engine/default.py&#34;, line 1485, in _init_compiled
-          flattened_processors[key](compiled_params[key])
-          ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
-        File &#34;/usr/local/lib/python3.13/site-packages/sqlalchemy/dialects/sqlite/base.py&#34;, line 1263, in process
-          raise TypeError(
+        File &#34;/usr/local/lib/python3.13/site-packages/sqlalchemy/engine/base.py&#34;, line 1963, in _exec_single_context
+          self.dialect.do_execute(
           ^
-      TypeError: SQLite Date type only accepts Python date objects as input.
+        File &#34;/usr/local/lib/python3.13/site-packages/sqlalchemy/engine/default.py&#34;, line 943, in do_execute
+          cursor.execute(statement, parameters)
+          ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+      sqlite3.IntegrityError: NOT NULL constraint failed: aluno.nota_primeiro_semestre
 
       The above exception was the direct cause of the following exception:
 
@@ -698,7 +680,7 @@ teste:  # 06/11/2025, 09:22:01:521
                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
         File &#34;/usr/local/lib/python3.13/site-packages/flasgger/utils.py&#34;, line 305, in wrapper
           return function(*args, **kwargs)
-        File &#34;/app/controllers/aluno_controllers.py&#34;, line 103, in criar_aluno
+        File &#34;/app/controllers/aluno_controllers.py&#34;, line 111, in criar_aluno
           db.session.commit()
           ~~~~~~~~~~~~~~~~~^^
         File &#34;/usr/local/lib/python3.13/site-packages/sqlalchemy/orm/scoping.py&#34;, line 599, in commit
@@ -751,23 +733,24 @@ teste:  # 06/11/2025, 09:22:01:521
         File &#34;/usr/local/lib/python3.13/site-packages/sqlalchemy/engine/base.py&#34;, line 1637, in _execute_clauseelement
           ret = self._execute_context(
           
-        File &#34;/usr/local/lib/python3.13/site-packages/sqlalchemy/engine/base.py&#34;, line 1817, in _execute_context
+        File &#34;/usr/local/lib/python3.13/site-packages/sqlalchemy/engine/base.py&#34;, line 1842, in _execute_context
+          return self._exec_single_context(
+          
+        File &#34;/usr/local/lib/python3.13/site-packages/sqlalchemy/engine/base.py&#34;, line 1982, in _exec_single_context
           self._handle_dbapi_exception(
           ^
         File &#34;/usr/local/lib/python3.13/site-packages/sqlalchemy/engine/base.py&#34;, line 2351, in _handle_dbapi_exception
           raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
-        File &#34;/usr/local/lib/python3.13/site-packages/sqlalchemy/engine/base.py&#34;, line 1811, in _execute_context
-          context = constructor(
-          
-        File &#34;/usr/local/lib/python3.13/site-packages/sqlalchemy/engine/default.py&#34;, line 1485, in _init_compiled
-          flattened_processors[key](compiled_params[key])
-          ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
-        File &#34;/usr/local/lib/python3.13/site-packages/sqlalchemy/dialects/sqlite/base.py&#34;, line 1263, in process
-          raise TypeError(
+        File &#34;/usr/local/lib/python3.13/site-packages/sqlalchemy/engine/base.py&#34;, line 1963, in _exec_single_context
+          self.dialect.do_execute(
           ^
-      sqlalchemy.exc.StatementError: (builtins.TypeError) SQLite Date type only accepts Python date objects as input.
+        File &#34;/usr/local/lib/python3.13/site-packages/sqlalchemy/engine/default.py&#34;, line 943, in do_execute
+          cursor.execute(statement, parameters)
+          ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+      sqlalchemy.exc.IntegrityError: (sqlite3.IntegrityError) NOT NULL constraint failed: aluno.nota_primeiro_semestre
       [SQL: INSERT INTO aluno (nome, idade, turma_id, data_nascimento) VALUES (?, ?, ?, ?)]
-      [parameters: [{&#39;idade&#39;: 15, &#39;data_nascimento&#39;: &#39;2005-10-10&#39;, &#39;nome&#39;: &#39;teste&#39;, &#39;turma_id&#39;: 1}]]
+      [parameters: (&#39;teste&#39;, 15, 1, &#39;2005-10-10&#39;)]
+      (Background on this error at: https://sqlalche.me/e/20/gkpj)
       </textarea>
       </div>
       <div class="explanation">
@@ -803,16 +786,13 @@ teste:  # 06/11/2025, 09:22:01:521
       <!--
 
       Traceback (most recent call last):
-        File "/usr/local/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1811, in _execute_context
-          context = constructor(
-          
-        File "/usr/local/lib/python3.13/site-packages/sqlalchemy/engine/default.py", line 1485, in _init_compiled
-          flattened_processors[key](compiled_params[key])
-          ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
-        File "/usr/local/lib/python3.13/site-packages/sqlalchemy/dialects/sqlite/base.py", line 1263, in process
-          raise TypeError(
+        File "/usr/local/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1963, in _exec_single_context
+          self.dialect.do_execute(
           ^
-      TypeError: SQLite Date type only accepts Python date objects as input.
+        File "/usr/local/lib/python3.13/site-packages/sqlalchemy/engine/default.py", line 943, in do_execute
+          cursor.execute(statement, parameters)
+          ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+      sqlite3.IntegrityError: NOT NULL constraint failed: aluno.nota_primeiro_semestre
 
       The above exception was the direct cause of the following exception:
 
@@ -833,7 +813,7 @@ teste:  # 06/11/2025, 09:22:01:521
                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
         File "/usr/local/lib/python3.13/site-packages/flasgger/utils.py", line 305, in wrapper
           return function(*args, **kwargs)
-        File "/app/controllers/aluno_controllers.py", line 103, in criar_aluno
+        File "/app/controllers/aluno_controllers.py", line 111, in criar_aluno
           db.session.commit()
           ~~~~~~~~~~~~~~~~~^^
         File "/usr/local/lib/python3.13/site-packages/sqlalchemy/orm/scoping.py", line 599, in commit
@@ -886,23 +866,24 @@ teste:  # 06/11/2025, 09:22:01:521
         File "/usr/local/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1637, in _execute_clauseelement
           ret = self._execute_context(
           
-        File "/usr/local/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1817, in _execute_context
+        File "/usr/local/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1842, in _execute_context
+          return self._exec_single_context(
+          
+        File "/usr/local/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1982, in _exec_single_context
           self._handle_dbapi_exception(
           ^
         File "/usr/local/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 2351, in _handle_dbapi_exception
           raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
-        File "/usr/local/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1811, in _execute_context
-          context = constructor(
-          
-        File "/usr/local/lib/python3.13/site-packages/sqlalchemy/engine/default.py", line 1485, in _init_compiled
-          flattened_processors[key](compiled_params[key])
-          ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
-        File "/usr/local/lib/python3.13/site-packages/sqlalchemy/dialects/sqlite/base.py", line 1263, in process
-          raise TypeError(
+        File "/usr/local/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1963, in _exec_single_context
+          self.dialect.do_execute(
           ^
-      sqlalchemy.exc.StatementError: (builtins.TypeError) SQLite Date type only accepts Python date objects as input.
+        File "/usr/local/lib/python3.13/site-packages/sqlalchemy/engine/default.py", line 943, in do_execute
+          cursor.execute(statement, parameters)
+          ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+      sqlalchemy.exc.IntegrityError: (sqlite3.IntegrityError) NOT NULL constraint failed: aluno.nota_primeiro_semestre
       [SQL: INSERT INTO aluno (nome, idade, turma_id, data_nascimento) VALUES (?, ?, ?, ?)]
-      [parameters: [{'idade': 15, 'data_nascimento': '2005-10-10', 'nome': 'teste', 'turma_id': 1}]]
+      [parameters: ('teste', 15, 1, '2005-10-10')]
+      (Background on this error at: https://sqlalche.me/e/20/gkpj)
 
 
       -->
