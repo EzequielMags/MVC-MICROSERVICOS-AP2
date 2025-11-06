@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  gerenciamento:
+    build: ./Gerenciamento
+    container_name: svc_gerenciamento
+    ports:
+      - "5000:5000"
+    environment:
+      - FLASK_ENV=production
+    # opcional: variável para os outros chamarem via localhost (fora do docker)
+
+  atividadesnotas:
+    build: ./AtividadesNotas
+    container_name: svc_atividadesnotas
+    ports:
+      - "5001:5001"
+    environment:
+      - GERENCIAMENTO_BASE_URL=http://gerenciamento:5000
+      - RESERVAS_BASE_URL=http://reservas:5002
+    depends_on:
+      - gerenciamento
+      - reservas
+
+  reservas:
+    build: ./Reservas
+    container_name: svc_reservas
+    ports:
+      - "5002:5002"
+    environment:
+      - GERENCIAMENTO_BASE_URL=http://gerenciamento:5000

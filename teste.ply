@@ -1,0 +1,6 @@
+teste:
+  url: http://127.0.0.1:5000/alunos/
+  method: POST
+  headers:
+    Content-Type: application/json
+  body: "{\r\n  \"id\": 1,\r\n  \"nome\": \"teste\",\r\n  \"idade\": 15,\r\n  \"turma_id\": 1,\r\n  \"data_nascimento\": \"2005-10-10\"\r\n}"
