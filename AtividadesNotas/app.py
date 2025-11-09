@@ -2,7 +2,6 @@ from flask import Flask, Blueprint
 from flasgger import Swagger
 from config import Config
 import requests
-from requests.adapters import HTTPAdapter, Retry
 from controllers.atividades_controllers import AtividadesController
 from controllers.notas_controllers import NotasController
 from models import db
@@ -12,36 +11,12 @@ app.config.from_object(Config)
 Config.ensure_instance_dir_exists()
 swagger = Swagger(app)
 
-def http_session():
-    session = requests.Session()
-    retries = Retry(total=3, backoff_factor=0.3, status_forcelist=[500, 502, 503, 504])
-    adapter = HTTPAdapter(max_retries=retries)
-    session.mount('http://', HTTPAdapter(max_retries=retries))
-    return session
 
-def get_turma(turma_id: int):
-   url = f"http://gerenciamento:5000/turmas/{turma_id}"
-   response = http_session().get(url, timeout=10)
-   response.raise_for_status()
-   return response.json()
 
-def get_professor(professor_id: int):
-   url = f"http://gerenciamento:5000/professores/{professor_id}"
-   response = http_session().get(url, timeout=10)
-   response.raise_for_status()
-   return response.json()
 
-def get_aluno(aluno_id: int):
-   url = f"http://gerenciamento:5000/alunos/{aluno_id}"
-   response = http_session().get(url, timeout=10)
-   response.raise_for_status()
-   return response.json()
 
-def get_atividade(atividade_id: int):
-   url = f"http://atividadesnotas:5001/atividades/{atividade_id}"
-   response = http_session().get(url, timeout=10)
-   response.raise_for_status()
-   return response.json()
+
+
 
 
 db.init_app(app)

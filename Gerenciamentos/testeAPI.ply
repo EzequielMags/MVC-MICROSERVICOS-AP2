@@ -1,0 +1,5 @@
+testeAPI:
+  url: http://localhost:3000/professores
+  method: GET
+  headers:
+    Content-Type: application/json

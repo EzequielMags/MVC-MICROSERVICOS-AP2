@@ -1,8 +1,31 @@
 from flask import request, jsonify
+import requests
 from models import db
 from models.atividades import Atividades
 from flasgger import swag_from
 from datetime import datetime
+
+def get_turma(turma_id: int):
+    try:
+        response = requests.get(f"http://gerenciamento:5000/turmas/{turma_id}")
+        if response.status_code == 200:
+            return response.json()  # retorna os dados da turma
+        return None  # turma não encontrada
+    except requests.RequestException as e:
+        print(f"Erro ao buscar turma: {e}")
+        return None
+
+
+# Função para buscar professor no serviço de gerenciamento
+def get_professor(professor_id: int):
+    try:
+        response = requests.get(f"http://gerenciamento:5000/professores/{professor_id}")
+        if response.status_code == 200:
+            return response.json()
+        return None
+    except requests.RequestException as e:
+        print(f"Erro ao buscar professor: {e}")
+        return None
 
 class AtividadesController:
 
@@ -72,6 +95,7 @@ class AtividadesController:
                     "schema": {
                         "type": "object",
                         "properties": {
+                            "id": {"type": "integer"},
                             "nome_atividade": {"type": "string"},
                             "descricao": {"type": "string"},
                             "peso_porcento": {"type": "integer"},
@@ -92,6 +116,17 @@ class AtividadesController:
         data = request.get_json()
         # Converter data_entrega string (YYYY-MM-DD) para date
         data_entrega_str = data.get('data_entrega')
+        
+        turma = get_turma(data["turma_id"])
+
+        if not turma:
+            return jsonify({'message': 'turma não encontrada'}), 400
+
+        professor = get_professor(data["professor_id"])
+
+        if not professor: 
+            return jsonify({"message": "professor não encontrado"}), 400
+
         data_entrega = None
         if data_entrega_str:
             try:
@@ -99,6 +134,7 @@ class AtividadesController:
             except ValueError:
                 return jsonify({'error': 'data_entrega deve estar no formato YYYY-MM-DD'}), 400
         nova_atividade = Atividades(
+            id=data['id'],
             nome_atividade=data['nome_atividade'],
             descricao=data['descricao'],
             peso_porcento=data['peso_porcento'],
@@ -130,6 +166,7 @@ class AtividadesController:
                     "schema": {
                         "type": "object",
                         "properties": {
+                            "id": {"type": "integer"},
                             "nome_atividade": {"type": "string"},
                             "descricao": {"type": "string"},
                             "peso_porcento": {"type": "integer"},
@@ -152,6 +189,7 @@ class AtividadesController:
         if not atividade:
             return jsonify({'message': 'Atividade não encontrada'}), 404
 
+        atividade.id = data.get('id', atividade.id)
         atividade.nome_atividade = data.get('nome_atividade', atividade.nome_atividade)
         atividade.descricao = data.get('descricao', atividade.descricao)
         atividade.peso_porcento = data.get('peso_porcento', atividade.peso_porcento)

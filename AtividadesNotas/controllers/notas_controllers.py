@@ -2,6 +2,26 @@ from flask import request, jsonify
 from models import db
 from models.notas import Notas
 from flasgger import swag_from
+import requests
+def get_atividade(atividade_id: int):
+    try:
+        response = requests.get(f"http://127.0.0.1:5001/atividades/{atividade_id}")
+        if response.status_code == 200:
+            return response.json()  # retorna os dados da turma
+        return None  # turma não encontrada
+    except requests.RequestException as e:
+        print(f"Erro ao buscar turma: {e}")
+        return None
+
+def get_aluno(aluno_id: int):
+    try:
+        response = requests.get(f"http://gerenciamento:5000/alunos/{aluno_id}")
+        if response.status_code == 200:
+            return response.json()  # retorna os dados da turma
+        return None  # turma não encontrada
+    except requests.RequestException as e:
+        print(f"Erro ao buscar turma: {e}")
+        return None
 
 class NotasController:
 
@@ -95,6 +115,15 @@ class NotasController:
     })
     def criar_nota():
         data = request.get_json()
+
+        aluno = get_aluno(data['aluno_id'])
+        if not aluno:
+            return jsonify({'message': 'Aluno não encontrado'}), 404
+        
+        atividade = get_atividade(data['atividade_id'])
+        if not atividade:
+            return jsonify({'message': 'Atividade não encontrada'}), 404
+        
         nova_nota = Notas(
             nota=data['nota'],
             aluno_id=data['aluno_id'],

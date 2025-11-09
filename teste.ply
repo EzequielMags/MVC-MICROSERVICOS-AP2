@@ -1,6 +1,6 @@
 teste:
-  url: http://127.0.0.1:5000/alunos/
+  url: http://127.0.0.1:5002/reservas
   method: POST
   headers:
     Content-Type: application/json
-  body: "{\r\n  \"id\": 1,\r\n  \"nome\": \"teste\",\r\n  \"idade\": 15,\r\n  \"turma_id\": 1,\r\n  \"data_nascimento\": \"2005-10-10\"\r\n}"
+  body: "{\r\n  \"data\": \"2005-10-10\",\r\n  \"id\": 1,\r\n  \"lab\": true,\r\n  \"num_sala\": 101,\r\n  \"turma_id\": 1\r\n}\r\n"

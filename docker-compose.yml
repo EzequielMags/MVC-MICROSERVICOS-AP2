@@ -1,7 +1,7 @@
 services:
   gerenciamento:
-    build: ./Gerenciamento
-    container_name: svc_gerenciamento
+    build: ./Gerenciamentos
+    container_name: svc_gerenciamentos
     ports:
       - "5000:5000"
 

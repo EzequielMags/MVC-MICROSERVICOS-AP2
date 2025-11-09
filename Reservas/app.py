@@ -15,18 +15,28 @@ db.init_app(app)
 
 with app.app_context():
     db.create_all()
-def http_session():
-    session = requests.Session()
-    retries = Retry(total=3, backoff_factor=0.3, status_forcelist=[500, 502, 503, 504])
-    adapter = HTTPAdapter(max_retries=retries)
-    session.mount('http://', HTTPAdapter(max_retries=retries))
-    return session
+
 
 def get_turma(turma_id: int):
-   url = f"http://gerenciamento:5000/turmas/{turma_id}"
-   response = http_session().get(url, timeout=10)
-   response.raise_for_status()
-   return response.json()
+    response = requests.get(f"http://gerenciamento:5000/turmas/{turma_id}")
+    if response.status_code == 200:
+        return response.json()
+    else:
+        return jsonify({'error': 'Turma não encontrada'}), 404
+
+    
+# def http_session():
+#     session = requests.Session()
+#     retries = Retry(total=3, backoff_factor=0.3, status_forcelist=[500, 502, 503, 504])
+#     adapter = HTTPAdapter(max_retries=retries)
+#     session.mount('http://', HTTPAdapter(max_retries=retries))
+#     return session
+
+# def get_turma(turma_id: int):
+#    url = f"http://gerenciamento:5000/turmas/{turma_id}"
+#    response = http_session().get(url, timeout=10)
+#    response.raise_for_status()
+#    return response.json()
         
 # Blueprint de Reservas
 reservas_bp = Blueprint('reservas', __name__)

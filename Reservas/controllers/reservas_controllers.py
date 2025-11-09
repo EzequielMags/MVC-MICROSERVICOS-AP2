@@ -2,6 +2,19 @@ from flask import request, jsonify
 from models import db
 from models.reservas import Reservas
 from flasgger import swag_from
+from datetime import datetime
+import requests
+
+def get_turma(turma_id: int):
+    try:
+        response = requests.get(f"http://gerenciamento:5000/turmas/{turma_id}")
+        if response.status_code == 200:
+            return response.json()  # retorna os dados da turma
+        return None  # turma não encontrada
+    except requests.RequestException as e:
+        print(f"Erro ao buscar turma: {e}")
+        return None
+
 
 class ReservasController:
 
@@ -68,6 +81,7 @@ class ReservasController:
                     'schema': {
                         'type': 'object',
                         'properties': {
+                            'id': {'type': 'integer'},
                             'num_sala': {'type': 'integer'},
                             'lab': {'type': 'boolean'},
                             'data': {'type': 'string', 'format': 'date'},
@@ -84,10 +98,19 @@ class ReservasController:
     })
     def criar_reserva():
         data = request.get_json()
+
+        turma = get_turma(data["turma_id"])
+
+        if not turma:
+            return jsonify({'message': 'turma não encontrada'}), 400
+            
+        data_str = data.get('data')
+        data_convertida = datetime.strptime(data_str, '%Y-%m-%d').date()
         nova_reserva = Reservas(
+            id=data['id'],
             num_sala=data['num_sala'],
             lab=data['lab'],
-            data=data['data'],
+            data=data_convertida,
             turma_id=data['turma_id']
         )
         db.session.add(nova_reserva)
@@ -100,6 +123,7 @@ class ReservasController:
         'summary': 'Atualizar uma reserva existente',
         'parameters': [
             {
+
                 'name': 'reserva_id',
                 'in': 'path',
                 'required': True,
@@ -114,6 +138,7 @@ class ReservasController:
                     'schema': {
                         'type': 'object',
                         'properties': {
+                            'id': {'type': 'integer'},
                             'num_sala': {'type': 'integer'},
                             'lab': {'type': 'boolean'},
                             'data': {'type': 'string', 'format': 'date'},
@@ -133,6 +158,15 @@ class ReservasController:
         reserva = Reservas.query.get(reserva_id)
         if not reserva:
             return jsonify({'message': 'Reserva não encontrada'}), 40
+
+        reserva.id = data.get('id', reserva.id)
+        reserva.num_sala = data.get('num_sala', reserva.num_sala)
+        reserva.lab = data.get('lab', reserva.lab)
+        reserva.data = data.get('data', reserva.data)
+        reserva.turma_id = data.get('turma_id', reserva.turma_id)
+
+        db.session.commit()
+        return jsonify(reserva.to_dict()), 200
 
     @swag_from({
         'tags': ['Reservas'],
