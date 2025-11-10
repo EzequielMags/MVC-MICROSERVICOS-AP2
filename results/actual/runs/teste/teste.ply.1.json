@@ -3,7 +3,7 @@
     "name": "teste",
     "test": "teste",
     "type": "request",
-    "end": "2025-11-09T16:55:25.771Z",
+    "end": "2025-11-10T01:13:59.606Z",
     "result": {
       "status": "Submitted",
       "message": "Request 'teste' SUBMITTED"
@@ -11,29 +11,28 @@
     "request": {
       "name": "teste",
       "type": "request",
-      "url": "http://127.0.0.1:5002/reservas",
-      "method": "POST",
+      "url": "http://127.0.0.1:5002/reservas/",
+      "method": "GET",
       "headers": {
         "Content-Type": "application/json"
       },
-      "body": "{\n  \"data\": \"2005-10-10\",\n  \"id\": 1,\n  \"lab\": true,\n  \"num_sala\": 101,\n  \"turma_id\": 1\n}\n",
-      "submitted": "2025-11-09T16:55:25.484Z"
+      "submitted": "2025-11-10T01:13:59.492Z"
     },
     "response": {
-      "runId": "51895f65894",
+      "runId": "204e67e83764",
       "status": {
-        "code": 201,
-        "message": "CREATED"
+        "code": 200,
+        "message": "OK"
       },
       "headers": {
         "connection": "close",
-        "content-length": "89",
+        "content-length": "3",
         "content-type": "application/json",
-        "date": "Sun, 09 Nov 2025 16:55:25 GMT",
+        "date": "Mon, 10 Nov 2025 01:13:59 GMT",
         "server": "Werkzeug/3.1.3 Python/3.13.9"
       },
-      "body": "{\n  \"data\": \"2005-10-10\",\n  \"id\": 1,\n  \"lab\": true,\n  \"num_sala\": 101,\n  \"turma_id\": 1\n}\n",
-      "time": 214
+      "body": "[]\n",
+      "time": 51
     }
   }
 ]

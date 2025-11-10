@@ -1,6 +1,5 @@
 teste:
-  url: http://127.0.0.1:5002/reservas
-  method: POST
+  url: http://127.0.0.1:5002/reservas/
+  method: GET
   headers:
     Content-Type: application/json
-  body: "{\r\n  \"data\": \"2005-10-10\",\r\n  \"id\": 1,\r\n  \"lab\": true,\r\n  \"num_sala\": 101,\r\n  \"turma_id\": 1\r\n}\r\n"

@@ -17,12 +17,7 @@ with app.app_context():
     db.create_all()
 
 
-def get_turma(turma_id: int):
-    response = requests.get(f"http://gerenciamento:5000/turmas/{turma_id}")
-    if response.status_code == 200:
-        return response.json()
-    else:
-        return jsonify({'error': 'Turma não encontrada'}), 404
+
 
     
 # def http_session():

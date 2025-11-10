@@ -18,11 +18,9 @@ services:
     environment:
       - GERENCIAMENTO_BASE_URL=http://gerenciamento:5000
       - RESERVAS_BASE_URL=http://reservas:5002
-      - ATIVIDADESNOTAS_BASE_URL=http://atividadesnotas:5001
     depends_on:
       - gerenciamento
       - reservas
-      - atividadesnotas
 
   reservas:
     build: ./Reservas
@@ -31,4 +29,3 @@ services:
       - "5002:5002"
     environment:
       - GERENCIAMENTO_BASE_URL=http://gerenciamento:5000
-      - ATIVIDADESNOTAS_BASE_URL=http://atividadesnotas:5001

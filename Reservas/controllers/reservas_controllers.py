@@ -154,16 +154,23 @@ class ReservasController:
         }
     })
     def atualizar_reserva(reserva_id):
-        data = request.get_json()
+        date = request.get_json()
+        data_string = date.get("data")
         reserva = Reservas.query.get(reserva_id)
         if not reserva:
             return jsonify({'message': 'Reserva não encontrada'}), 40
 
-        reserva.id = data.get('id', reserva.id)
-        reserva.num_sala = data.get('num_sala', reserva.num_sala)
-        reserva.lab = data.get('lab', reserva.lab)
-        reserva.data = data.get('data', reserva.data)
-        reserva.turma_id = data.get('turma_id', reserva.turma_id)
+        try:
+            data_convertida = datetime.strptime(data_string, '%Y-%m-%d').date() if data_string else None
+        
+        except ValueError:
+             return jsonify({'error': 'data deve estar no formato YYYY-MM-DD'}), 400
+
+        reserva.id = date.get('id', reserva.id)
+        reserva.num_sala = date.get('num_sala', reserva.num_sala)
+        reserva.lab = date.get('lab', reserva.lab)
+        reserva.data = data_convertida
+        reserva.turma_id = date.get('turma_id', reserva.turma_id)
 
         db.session.commit()
         return jsonify(reserva.to_dict()), 200
