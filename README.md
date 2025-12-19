@@ -61,7 +61,7 @@ Responsável pelo controle de atividades e registro de notas, incluindo:
 - Endpoints independentes por microsserviço
 
 Exemplo de endpoints:
-```http
+http
 GET    /gerenciamento
 POST   /reservas
 GET    /atividades-notas
